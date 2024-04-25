@@ -11,9 +11,13 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
+}
+
+.body-contact {
     background: #ff8a08;
     height: 100vh;
     display: flex;
