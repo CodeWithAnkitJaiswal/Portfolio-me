@@ -30,13 +30,6 @@ function openProject() {
     window.location.href = 'projects.html';
 }
 
-function openPreview() {
-    const highlight = document.querySelector('.project-card');
-    const preview = document.querySelector('.preview');
-    preview.classList.toggle('active');
-    highlight.classList.toggle('active');
-}
-
 // Highlight current section in navigation
 window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('section');
@@ -52,54 +45,30 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Form submission and validation
-const form = document.querySelector('.contact form');
-form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const name = this.querySelector('#name').value;
-    const email = this.querySelector('#email').value;
-    const message = this.querySelector('#message').value;
 
-    if (name && validateEmail(email) && message) {
-        try {
-            const response = await fetch('https://example.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, email, message }),
-            });
 
-            if (response.ok) {
-                // Successful submission
-                alert('Form submitted successfully!');
-                this.reset();
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const text = "Hello, I'm Ankit Jaiswal"; // Your text here
+    let index = 0;
+
+    function typeWriter() {
+        if (index < text.length) {
+            const char = text.charAt(index);
+            if (window.innerWidth < 480 && char === ',') {
+                // Break the text at commas only when device width is less than 700px
+                document.getElementById("typewriter-text").innerHTML += ",<br>";
             } else {
-                // Error in submission
-                alert('Something went wrong. Please try again later.');
+                document.getElementById("typewriter-text").innerHTML += char;
             }
-        } catch (error) {
-            // Network error or other issues
-            console.error('Error:', error);
-            alert('Something went wrong. Please try again later.');
+            index++;
+            setTimeout(typeWriter, 150); // Adjust typing speed here (milliseconds)
+        } else {
+            document.getElementById("blinking-cursor").style.display = "inline-block"; // Show blinking cursor
         }
-    } else {
-        // Form fields not filled or invalid email
-        alert('Please fill in all fields and provide a valid email.');
     }
-});
 
-// Function to validate email format
-function validateEmail(email) {
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
-}
-
-// Smooth scroll-to-top button
-const scrollToTopButton = document.getElementById('scrollToTopButton');
-scrollToTopButton.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+    setTimeout(typeWriter, 1000); // Delay the start of typing animation
 });
